@@ -17,10 +17,12 @@ def category(request, category_id):
          category__id=category_id
     ).order_by('-id'))
 
+    category_name = recipes[0].category.name if recipes[0].category else 'Sem Categoria'
     return render(request, 'recipes/pages/category.html', context={
         'recipes': recipes,
-         'title': f'{recipes[0].category.name}-Category'
+        'title': f'{category_name} - Category'
     })
+
 
 def recipe(request, id):
     recipe = get_object_or_404(Recipe, pk=id, is_published=True,)
