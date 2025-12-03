@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404,get_list_or_404
 from django.http import Http404, HttpResponse
 from django.shortcuts import render
-from utils.recipes.factory import make_recipe
 from recipes.models import Recipe
 from django.db.models import Q
 def home(request):
