@@ -4,9 +4,15 @@ from django.shortcuts import render
 from recipes.models import Recipe
 from django.db.models import Q
 from utils.pagination import make_pagination
+
+import os
+
+PER_PAGE = int(os.environ.get('PER_PAGE', 6))
+
+
 def home(request):
     recipes = Recipe.objects.filter( is_published=True).order_by('-id')
-    page_obj,pagination_range = make_pagination(request,recipes,9) 
+    page_obj,pagination_range = make_pagination(request,recipes,PER_PAGE) 
     return render(request, 'recipes/pages/home.html', context={
         'recipes': page_obj,
         'pagination_range':pagination_range
@@ -17,7 +23,7 @@ def category(request, category_id):
          is_published=True,
          category__id=category_id
     ).order_by('-id'))
-    page_obj,pagination_range = make_pagination(request,recipes,9) 
+    page_obj,pagination_range = make_pagination(request,recipes,PER_PAGE) 
 
     category_name = recipes[0].category.name if recipes[0].category else 'Sem Categoria'
     return render(request, 'recipes/pages/category.html', context={
@@ -43,7 +49,7 @@ def search(resquest):
             Q(description__icontains=search_term),
         ),
         is_published=True).order_by('-id')
-    page_obj,pagination_range = make_pagination(resquest,recipes,9) 
+    page_obj,pagination_range = make_pagination(resquest,recipes,PER_PAGE) 
 
     if not search_term:
         raise Http404()
