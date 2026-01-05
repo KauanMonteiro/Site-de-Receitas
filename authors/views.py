@@ -27,4 +27,8 @@ def register_create(request):
         user.save()
         messages.success(request, 'Your user is created, please log in.')
         del(request.session['register_form_data'])
-    return redirect('authors:register')
+    return render(
+        request,
+        'pages/register_view.html',
+        {'form': form}
+    )
