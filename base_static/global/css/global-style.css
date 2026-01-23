@@ -537,6 +537,18 @@ a {
   padding: 1rem;
 }
 
+.inline-form {
+  display: inline;
+}
+
+.plaintext-button {
+  display: inline;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--color-primary);
+  font-size: 1.6rem;
+}
 @media (max-width: 600px) {
   .main-content-list,
   .form-content-grid {
